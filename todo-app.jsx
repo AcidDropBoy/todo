@@ -38,27 +38,26 @@ export default class TodoApp extends Component {
   };
 
   deleteTask = (id) => {
-    this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const newData = [...todoData.slice(0, idx), ...todoData.slice(idx + 1)];
-
+	this.setState(({ todoData }) => {
+      const newData = todoData.filter((item) => id !== item.id);
       return {
-        todoData: newData,
+			todoData: newData,
       };
-    });
+   });
   };
 
   onToggleDone = id => {
 	this.setState(({ todoData }) => {
-		const idx = todoData.findIndex((el) => el.id === id );
-		const oldTask = todoData[idx];
-		const newTask = { ...oldTask, done: !oldTask.done };
-		const newData = [...todoData.slice(0, idx), newTask, ...todoData.slice(idx + 1)];
-
-		return {
-			todoData: newData
-		};
-	});
+      const newData = todoData.map((item) => {
+        if (id === item.id) {
+          return { ...item, done: !item.done };
+        }
+        return item;
+      });
+      return {
+			todoData: newData,
+      };
+    });
 };
 
   deleteСompleted = () => {
@@ -67,7 +66,7 @@ export default class TodoApp extends Component {
       return {
         todoData: newData,
       };
-    });
+	 });
   };
 
    editTask = (id, description) => {

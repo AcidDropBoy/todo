@@ -5,24 +5,24 @@ import './task-list.css';
 
 // TaskList - список задач
 const TaskList = ({ todos, deleteTask, onToggleDone, filter, editTask }) => {
-  let filterTodos = [...todos];
-
+	let filterTodos = todos;
   if (filter === 'active') {
-    filterTodos = todos.filter((item) => !item.done);
+   filterTodos = todos.filter((item) => !item.done);
   }
 
   if (filter === 'completed') {
-    filterTodos = todos.filter((item) => item.done);
+   filterTodos = todos.filter((item) => item.done);
   }
 
-  const elements = filterTodos.map((item) => {
-    const { id, dataTask, ...itemProps } = item;
+  	const elements = filterTodos.map((item) => {
+    const { id, dataTask, done, ...itemProps } = item;
 
     return (
       <Task
 		  key={id}
 		  id={id}
 		  dataTask={dataTask}
+		  done={done}
 		  {...itemProps}
         deleteTask={() => deleteTask(id)}
 		  onToggleDone={() => onToggleDone(id)}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDistanceToNow } from 'date-fns';
 import EditTask from '../edit-task/edit-task';
+import clsx from 'clsx';
 import './task.css';
 
 // Task - одна задача
@@ -40,18 +41,12 @@ export default class Task extends Component {
 	 const { id, description, deleteTask, onToggleDone, done, dataTask, editTask } = this.props;
 	 const { onEditTask } = this.state;
 
-    let classNames = 'todo-item';
-
-    if (done) {
-      classNames += ' completed';
-    }
-
     return (
 		<div>
 		{!onEditTask ? (
-      <li className={classNames}>
+      <li className={clsx('todo-item', done && 'completed')}>
         <div className="view">
-          <input className="toggle" type="checkbox" onClick={onToggleDone} />
+          <input className="toggle" type="checkbox" onClick={onToggleDone} checked={done} />
           <label>
             <span className="description">{description}</span>
             <span className="created">
